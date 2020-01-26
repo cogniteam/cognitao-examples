@@ -7,7 +7,7 @@ variables:
   BUILD_WIN64: "false"
   BUILD_AMD64: "true"
   BUILD_ARM64: "true"
-  BUILD_ARMHF: "false"
+  BUILD_ARMHF: "true"
   BUILD_XENIAL: "true"
   BUILD_BIONIC: "true"
   BUILD_COSMIC: "false"
