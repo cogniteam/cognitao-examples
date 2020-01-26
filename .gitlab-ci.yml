@@ -1,0 +1,20 @@
+
+variables:
+  DEPEND_COGNI_APT: "cognitao"
+  DEPEND_PACKAGES: "cognitao"
+  APT_REPOSITORY: "cognitao"
+  OWNCLOUD_PATH: Elbit_DM/Examples/Linux
+  BUILD_WIN64: "false"
+  BUILD_AMD64: "true"
+  BUILD_ARM64: "true"
+  BUILD_ARMHF: "false"
+  BUILD_XENIAL: "true"
+  BUILD_BIONIC: "true"
+  BUILD_COSMIC: "false"
+  BUILD_DISCO: "false"
+  BUILD_EOAN: "false"
+  BUILD_FOCAL: "false"
+  
+include:
+  - project: "cogniteam/develop"
+    file: /gitlab-ci/cmake_build_and_deploy.yaml
