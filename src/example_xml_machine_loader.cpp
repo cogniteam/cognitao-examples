@@ -21,13 +21,11 @@ int main(int argc, char* argv[]) {
 
 			cout<< "Loading XML " << argv[1] << endl;
 			Machine* m =  MachineXMLReader::read(argv[1]);
-
-			string linux_path = "/usr/share/cognitao/www/";
-			MachineWebServer w(linux_path, "127.0.0.1", "1234", m);
+			MachineWebServer w("127.0.0.1", "1234", m);
 			
 			m->start();
 
-			while (true)//!m->getCurrentState()->hasReturn())
+			while (!m->isFinished())
 			{
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
