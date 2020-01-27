@@ -39,10 +39,17 @@ add_executable(example_xml_machine_loader
   src/example_xml_machine_loader.cpp
 )
 
+add_library(example_runner_plugin SHARED
+    src/example_runner_plugin
+)
 #
 # Link cognitao c++ core library
 #
 target_link_libraries(example_xml_machine_loader
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(example_runner_plugin
   CogniTao::cognitao_core
 )
 
