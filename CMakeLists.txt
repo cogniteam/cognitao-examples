@@ -39,6 +39,14 @@ add_executable(example_xml_machine_loader
   src/example_xml_machine_loader.cpp
 )
 
+add_executable(example_state_machine
+  src/example_state_machine.cpp
+)
+
+add_executable(example_behavior_tree_simple
+  src/example_behavior_tree_simple.cpp
+) 
+
 add_library(example_runner_plugin SHARED
     src/example_runner_plugin
 )
@@ -46,6 +54,14 @@ add_library(example_runner_plugin SHARED
 # Link cognitao c++ core library
 #
 target_link_libraries(example_xml_machine_loader
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(example_state_machine
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(example_behavior_tree_simple
   CogniTao::cognitao_core
 )
 
