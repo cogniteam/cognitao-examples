@@ -8,7 +8,7 @@ project(cognitao-examples VERSION 0.9.0)
 #
 set(RELEASE_VERSION Off)
 
-add_compile_options(-std=c++14)
+add_compile_options(-std=c++11)
 
 #
 # Find CogniTao cmake package
@@ -94,13 +94,14 @@ set(INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME})
 set(INSTALL_CMAKE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 
 # CogniTao Core library and binaries
-install(TARGETS example_xml_machine_loader EXPORT CogniTaoExamplesExports
+install(TARGETS example_xml_machine_loader example_state_machine 
+    example_behavior_tree_simple example_runner_plugin EXPORT CogniTaoExamplesExports
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
   LIBRARY DESTINATION ${INSTALL_LIB_DIR}
   RUNTIME DESTINATION ${INSTALL_BIN_DIR}
 )
 
-# Machine files
+# Source files
 install(
   DIRECTORY ${CMAKE_SOURCE_DIR}/src/
   DESTINATION ${INSTALL_SHARE_DIR}/sources
