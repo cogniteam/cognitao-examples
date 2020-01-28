@@ -1,3 +1,10 @@
+//============================================================================
+// Name        : example_xml_machine_loader.cpp
+// Author      : Cogniteam
+// Version     :
+// Copyright   : MIT
+// Description :
+//============================================================================
 
 #include <cognitao/CogniTao.h>
 

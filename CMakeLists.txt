@@ -47,6 +47,18 @@ add_executable(example_behavior_tree_simple
   src/example_behavior_tree_simple.cpp
 ) 
 
+add_executable(example_behavior_tree_trigger
+  src/example_behavior_tree_trigger.cpp
+)
+
+add_executable(example_behavior_tree_user_action
+  src/example_behavior_tree_user_action.cpp
+)
+
+add_executable(example_behavior_tree_runner
+  src/example_behavior_tree_runner.cpp
+)
+
 add_library(example_runner_plugin SHARED
     src/example_runner_plugin
 )
@@ -65,7 +77,19 @@ target_link_libraries(example_behavior_tree_simple
   CogniTao::cognitao_core
 )
 
+target_link_libraries(example_behavior_tree_user_action
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(example_behavior_tree_runner
+  CogniTao::cognitao_core
+)
+
 target_link_libraries(example_runner_plugin
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(example_behavior_tree_trigger
   CogniTao::cognitao_core
 )
 
