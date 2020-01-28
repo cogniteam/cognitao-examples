@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(cognitao-examples VERSION 0.9.0)
+project(cognitao-examples VERSION 1.0.0)
 
 #
 # Set to 'On' for non-nightly version build (stable version X.Y.Z)
 # When set to 'Off' - build packaged as X.Y.Z-nightly version
 #
-set(RELEASE_VERSION Off)
+set(RELEASE_VERSION On)
 
 add_compile_options(-std=c++11)
 
@@ -35,61 +35,61 @@ include_directories("c:/Program Files/CogniTao/include")
 #
 # Add your code
 #
-add_executable(example_xml_machine_loader 
+add_executable(cognitao_example_xml_machine_loader 
   src/example_xml_machine_loader.cpp
 )
 
-add_executable(example_state_machine
+add_executable(cognitao_example_state_machine
   src/example_state_machine.cpp
 )
 
-add_executable(example_behavior_tree_simple
+add_executable(cognitao_example_behavior_tree_simple
   src/example_behavior_tree_simple.cpp
 ) 
 
-add_executable(example_behavior_tree_trigger
+add_executable(cognitao_example_behavior_tree_trigger
   src/example_behavior_tree_trigger.cpp
 )
 
-add_executable(example_behavior_tree_user_action
+add_executable(cognitao_example_behavior_tree_user_action
   src/example_behavior_tree_user_action.cpp
 )
 
-add_executable(example_behavior_tree_runner
+add_executable(cognitao_example_behavior_tree_runner
   src/example_behavior_tree_runner.cpp
 )
 
-add_library(example_runner_plugin SHARED
+add_library(cognitao_example_runner_plugin SHARED
     src/example_runner_plugin
 )
 #
 # Link cognitao c++ core library
 #
-target_link_libraries(example_xml_machine_loader
+target_link_libraries(cognitao_example_xml_machine_loader
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_state_machine
+target_link_libraries(cognitao_example_state_machine
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_behavior_tree_simple
+target_link_libraries(cognitao_example_behavior_tree_simple
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_behavior_tree_user_action
+target_link_libraries(cognitao_example_behavior_tree_user_action
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_behavior_tree_runner
+target_link_libraries(cognitao_example_behavior_tree_runner
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_runner_plugin
+target_link_libraries(cognitao_example_runner_plugin
   CogniTao::cognitao_core
 )
 
-target_link_libraries(example_behavior_tree_trigger
+target_link_libraries(cognitao_example_behavior_tree_trigger
   CogniTao::cognitao_core
 )
 
@@ -117,9 +117,14 @@ endif()
 set(INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME})
 set(INSTALL_CMAKE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 
-# CogniTao Core library and binaries
-install(TARGETS example_xml_machine_loader example_state_machine 
-    example_behavior_tree_simple example_runner_plugin EXPORT CogniTaoExamplesExports
+# CogniTao Examples
+install(TARGETS cognitao_example_xml_machine_loader 
+    cognitao_example_state_machine 
+    cognitao_example_behavior_tree_simple
+    cognitao_example_behavior_tree_user_action 
+    cognitao_example_behavior_tree_runner 
+    cognitao_example_runner_plugin 
+    cognitao_example_behavior_tree_trigger EXPORT CogniTaoExamplesExports
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
   LIBRARY DESTINATION ${INSTALL_LIB_DIR}
   RUNTIME DESTINATION ${INSTALL_BIN_DIR}
@@ -242,6 +247,7 @@ if (EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
     set(CPACK_NSIS_PACKAGE_NAME "CogniTao")
     set(CPACK_NSIS_DISPLAY_NAME "CogniTao")
     set(CPACK_PACKAGE_INSTALL_DIRECTORY "CogniTao")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS " cognitao-nightly ")
     message(STATUS "Release build")
   else()
     set(CPACK_DEBIAN_PACKAGE_NAME "${PROJECT_NAME}-nightly")
@@ -249,13 +255,12 @@ if (EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
     set(CPACK_NSIS_DISPLAY_NAME "CogniTao Nightly")
     set(CPACK_PACKAGE_INSTALL_DIRECTORY "CogniTao Nightly")
     set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}-nightly")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS " cognitao-nightly ")
     message(STATUS "Development build")
   endif()
-
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "  ")
+  
   set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
   set(CPACK_DEBIAN_PACKAGE_SECTION "dev")
-
 
   include(CPack)
   

@@ -3,7 +3,7 @@ variables:
   DEPEND_COGNI_APT: "cognitao"
   DEPEND_PACKAGES: "cognitao-nightly"
   APT_REPOSITORY: "cognitao"
-  OWNCLOUD_PATH: Elbit_DM/Examples/Linux
+  OWNCLOUD_PATH: CogniTao/Examples
   BUILD_WIN64: "false"
   BUILD_AMD64: "true"
   BUILD_ARM64: "true"
