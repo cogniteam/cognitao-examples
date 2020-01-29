@@ -107,7 +107,7 @@ int main(int argc, char* argv[])
 			Machine* m =  MachineXMLReader::read(argv[1]);
 
 
-			MachineWebServer w("127.0.0.1", "1234", m);
+			MachineWebServer w("0.0.0.0", "1234", m);
 			m->start();
 
 			while (true) // can be !m->isFinished() for one time run

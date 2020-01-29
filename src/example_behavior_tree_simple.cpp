@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
         m->setInitialTask(loop);
 
         //Create MachineWebServer to visually monitor the machine 
-        MachineWebServer w("127.0.0.1", "1234", m);
+        MachineWebServer w("0.0.0.0", "1234", m);
         m->start();
 
         //While the machine has not returned

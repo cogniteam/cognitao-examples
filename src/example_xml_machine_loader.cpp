@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 
 			cout<< "Loading XML " << argv[1] << endl;
 			Machine* m =  MachineXMLReader::read(argv[1]);
-			MachineWebServer w("127.0.0.1", "1234", m);
+			MachineWebServer w("0.0.0.0", "1234", m);
 			
 			m->start();
 

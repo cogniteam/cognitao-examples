@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
        
         m->setInitialTask(trigger);
 
-        MachineWebServer w("127.0.0.1", "1234", m);
+        MachineWebServer w("0.0.0.0", "1234", m);
 
         // start the machine
         m->start();
