@@ -1,6 +1,6 @@
 //============================================================================
-// Name        : sharedLibRunnerExample.cpp
-// Author      : 
+// Name        : example_runner_plugin.cpp
+// Author      : Cogniteam
 // Version     :
 // Copyright   : MIT
 // Description :
@@ -36,6 +36,10 @@ public:
 	virtual std::string getType() { return "shared_dummy";};
 
 };
+
+// RUNNER PLUGIN INTERFACE 
+// runners compiled as plugins (so or dll) can be load using 
+// PluginLoader::loadPlugins();
 
 extern "C" Runner* create_runner()
 {

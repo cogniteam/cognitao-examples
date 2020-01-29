@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
 		// init WM interface
 		WM::init(new MapThreadSafeDataSource());
 
-        Machine* m = new MachineBT();
+        Machine *m = new MachineBT();
         
         // trigger will stop the subtree with success once condition in met
         auto trigger = new BehaviourTrigger("event","=","true");
@@ -44,6 +44,9 @@ int main(int argc, char* argv[]) {
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
+
+        m->stop();
+		delete m;
     
 	}
 	catch (std::exception const& e) {

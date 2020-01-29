@@ -62,7 +62,8 @@ int main(int argc, char* argv[]) {
 
         // Serialize machine to JSON
         cout<<MachineJSONWriter::toString(m) <<endl;
-    
+        m->stop();
+        delete m;
 	}
 	catch (std::exception const& e) {
 		std::cerr << "ERROR: " << e.what() << std::endl;

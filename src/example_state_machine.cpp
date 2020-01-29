@@ -1,4 +1,12 @@
 
+//============================================================================
+// Name        : example_state_machine.cpp
+// Author      : Cogniteam
+// Version     :
+// Copyright   : MIT
+// Description :
+//============================================================================
+
 #include <cognitao/CogniTao.h>
 
 
@@ -14,13 +22,13 @@ int main(int argc, char* argv[]) {
                 auto s1 = new StateEmpty("locked",params);
                 auto s2 = new StateEmpty("unlocked",params);
 
-                MachineFSM m;
+                Machine *m = new MachineFSM();
                 auto E1 = new ProtocolTransition ({"PUSH"});
                 auto E2 = new ProtocolTransition ({"COIN"});
-                m.setInitialTask(s1);
+                m->setInitialTask(s1);
                 s1->addEdge(s2,E2);
                 s2->addEdge(s1,E1);
-                m.start();
+                m->start();
                 std::this_thread::sleep_for(std::chrono::seconds(2));
 
                 auto start = chrono::steady_clock::now();
@@ -40,7 +48,7 @@ int main(int argc, char* argv[]) {
                 }
                 auto end = chrono::steady_clock::now();
 
-                m.stop();
+                m->stop();
                 cout << "BENCH_STATE_CHANGE Elapsed time in nanoseconds : "
                         << chrono::duration_cast<chrono::nanoseconds>(end - start).count()
                         << " ns" << endl;
@@ -56,8 +64,7 @@ int main(int argc, char* argv[]) {
                 cout << "BENCH_STATE_CHANGE Elapsed time in seconds : "
                         << chrono::duration_cast<chrono::seconds>(end - start).count()
                         << " sec";
-
-    
+                delete m;
 	}
 	catch (std::exception const& e) {
 		std::cerr << "ERROR: " << e.what() << std::endl;

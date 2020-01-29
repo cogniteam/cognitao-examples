@@ -92,6 +92,9 @@ int main(int argc, char* argv[])
 			{
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
+
+			m->stop();
+			delete m;
 		}
 	}
 	catch (std::exception const& e) {
