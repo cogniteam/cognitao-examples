@@ -112,6 +112,11 @@ int main(int argc, char* argv[])
 
 			while (true) // can be !m->isFinished() for one time run
 			{
+				// Print WM
+            	cout<<WM::toString();    
+            	// Print Execution State
+            	cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
 			m->stop();

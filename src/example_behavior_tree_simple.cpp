@@ -55,7 +55,8 @@ int main(int argc, char* argv[]) {
             
             // Print WM
             cout<<WM::toString();    
-
+            // Print Execution State
+            cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
             //Sleep
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }

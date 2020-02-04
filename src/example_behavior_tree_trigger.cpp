@@ -35,16 +35,16 @@ int main(int argc, char* argv[]) {
         m->start();
         
         std::this_thread::sleep_for(std::chrono::seconds(4));
-
+        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
         // trigger the event
         WM::setVar("event","true");
-        
+        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
         // wait for the tree to end
         while (!m->isFinished())
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
-
+        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
         m->stop();
 		delete m;
     

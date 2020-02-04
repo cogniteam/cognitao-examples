@@ -31,6 +31,11 @@ int main(int argc, char* argv[]) {
 
 			while (!m->isFinished())
 			{
+				// Print WM
+            	cout<<WM::toString();    
+            	// Print Execution State
+            	cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
 
