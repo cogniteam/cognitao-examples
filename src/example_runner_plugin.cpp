@@ -11,7 +11,7 @@
 #include <cognitao/Runner.h>
 using namespace std;
 
-class SharedLibDummyRunner : public Runner{
+class SharedLibDummyRunner : public Runner {
 
 	atomic<bool> stopRequested;
 public:
@@ -46,14 +46,14 @@ extern "C" Runner* create_runner()
   return new SharedLibDummyRunner();
 }
 
-extern "C" void destroy_runner( Runner* object )
+extern "C" void destroy_runner(Runner* object)
 {
   delete object;
 }
 
 extern "C" const char* get_runner_type()
 {
-  return string("shared_dummy").c_str();
+  return "shared_dummy";
 }
 
 
