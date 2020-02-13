@@ -66,6 +66,10 @@ add_executable(cognitao_example_behavior_tree_runner
 add_library(cognitao_example_runner_plugin SHARED
     src/example_runner_plugin
 )
+
+add_library(cognitao_example_datasource_plugin SHARED
+    src/example_datasource_plugin
+)
 #
 # Link cognitao c++ core library
 #
@@ -94,6 +98,10 @@ target_link_libraries(cognitao_example_behavior_tree_runner
 )
 
 target_link_libraries(cognitao_example_runner_plugin
+  CogniTao::cognitao_core
+)
+
+target_link_libraries(cognitao_example_datasource_plugin
   CogniTao::cognitao_core
 )
 
@@ -132,7 +140,8 @@ install(TARGETS cognitao_example_xml_machine_loader
     cognitao_example_behavior_tree_simple
     cognitao_example_behavior_tree_user_action 
     cognitao_example_behavior_tree_runner 
-    cognitao_example_runner_plugin 
+    cognitao_example_runner_plugin
+    cognitao_example_datasource_plugin 
     cognitao_example_behavior_tree_trigger EXPORT CogniTaoExamplesExports
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
   LIBRARY DESTINATION ${INSTALL_LIB_DIR}
