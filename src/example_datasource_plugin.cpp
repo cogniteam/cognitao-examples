@@ -7,27 +7,38 @@
 //============================================================================
 
 #include <iostream>
+
 #include <cognitao/CogniTao.h>
 #include <cognitao/Runner.h>
+
+
 using namespace std;
 
-class SharedLibraryPrinterDataSource  : public MapDataSource{
+
+class SharedLibraryPrinterDataSource  : public MapDataSource {
 
 public:
 	
-	virtual ~SharedLibraryPrinterDataSource() {};
+	virtual ~SharedLibraryPrinterDataSource() {
 
-	virtual string getVar(const string& variable){
-		cout << "<<" << variable << endl;
+    }
+
+	virtual string getVar(const string& variable) {
+
+		cout << "<<  SharedDatasource: getting variable " << variable << endl;
+
 		return MapDataSource::getVar(variable);
-	};
+	}
 
-	virtual void setVar(const string& variable, const string& value){
-		cout << ">>" << variable << ":" << value <<endl;
+	virtual void setVar(const string& variable, const string& value) {
+
+		cout << ">> SharedDatasource: setting variable " << variable << ":" << value <<endl;
+        
 		MapDataSource::setVar(variable,value);
-	};
+	}
 	
 	virtual string toString() {
+
 		return MapDataSource::toString();
 	}
 
@@ -37,18 +48,18 @@ public:
 // runners compiled as plugins (so or dll) can be load using 
 // PluginLoader::loadPlugins();
 
-extern "C" DataSource* create_datasource()
-{
+extern "C" DataSource* create_datasource() {
+
   return new SharedLibraryPrinterDataSource();
 }
 
-extern "C" void destroy_datasource(DataSource* object)
-{
+extern "C" void destroy_datasource(DataSource* object) {
+
   delete object;
 }
 
-extern "C" const char* get_datasource_type()
-{
+extern "C" const char* get_datasource_type() {
+    
   return "shared_datasource";
 }
 

@@ -13,28 +13,44 @@ using namespace std;
 
 class SharedLibDummyRunner : public Runner {
 
-	atomic<bool> stopRequested;
 public:
 
-	SharedLibDummyRunner() : Runner(){}
+	SharedLibDummyRunner() : Runner() {
 
-	virtual bool run(){
-		stopRequested = false;
+	}
+
+	virtual bool run() {
+
+		stopRequested_ = false;
 		cout << "IN SHARED LIBRARY RUNNER " << action_ << " SLEEP "  << endl;
 
 		double msec = 2.0 * 1000;
+
 		int idx = msec / 100;
-		for(int i =0; i<idx && !stopRequested; i++)
-		{
+
+		for(int i =0; i<idx && !stopRequested_; i++) {
+			
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
+
+		// cerr << getDataSource()->getVar("DistanceAA") << endl;
+
+		cerr << "DistanceAA = " << WM::getVar("DistanceAA") << endl;
+		
 		return true;
 	}
-	virtual void stop() {
-		stopRequested = true;
-	}
-	virtual std::string getType() { return "shared_dummy";};
 
+	virtual void stop() {
+		stopRequested_ = true;
+	}
+
+	virtual std::string getType() { 
+		return "shared_dummy";
+	};
+	
+public:
+
+	atomic<bool> stopRequested_;
 };
 
 // RUNNER PLUGIN INTERFACE 
