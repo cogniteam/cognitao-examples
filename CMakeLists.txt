@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(cognitao-examples VERSION 1.0.3)
+project(cognitao-examples VERSION 1.0.4)
 
 #
 # Set to 'On' for non-nightly version build (stable version X.Y.Z)
@@ -14,6 +14,18 @@ add_compile_options(-std=c++11)
 # Find CogniTao cmake package
 #
 find_package(cognitao REQUIRED)
+
+#
+# Make doc target - generates html API reference using doxygen
+#
+if(${CMAKE_VERSION} VERSION_GREATER "3.8.0") 
+    add_custom_target(docs 
+    ${CMAKE_COMMAND} -E env 
+        PROJECT_VERSION=${PROJECT_VERSION}$<IF:$<BOOL:${RELEASE_VERSION}>,"","-nightly"> 
+        "doxygen" "${CMAKE_SOURCE_DIR}/Doxyfile"
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    )
+endif()
 
 #
 # Build
