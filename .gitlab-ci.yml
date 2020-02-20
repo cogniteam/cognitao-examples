@@ -1,0 +1,25 @@
+
+variables:
+  DEPEND_COGNI_APT: "cognitao"
+  DEPEND_PACKAGES: "cognitao-nightly"
+  APT_REPOSITORY: "cognitao"
+  OWNCLOUD_PATH: CogniTao/Examples
+  BUILD_WIN64: "false"
+  BUILD_AMD64: "true"
+  BUILD_ARM64: "true"
+  BUILD_ARMHF: "true"
+  BUILD_XENIAL: "true"
+  BUILD_BIONIC: "true"
+  BUILD_COSMIC: "false"
+  BUILD_DISCO: "false"
+  BUILD_EOAN: "false"
+  BUILD_FOCAL: "false"
+  #
+  # Code API Reference HTML build and deploy
+  #
+  BUILD_DOCS: "true"
+  DEPLOY_DOCS: "true"
+  
+include:
+  - project: "cogniteam/develop"
+    file: /gitlab-ci/cmake_build_and_deploy.yaml

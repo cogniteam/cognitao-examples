@@ -6,3 +6,6 @@
 
 .project
 /wmExample/
+
+build/
+.vscode/
