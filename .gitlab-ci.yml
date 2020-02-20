@@ -14,6 +14,11 @@ variables:
   BUILD_DISCO: "false"
   BUILD_EOAN: "false"
   BUILD_FOCAL: "false"
+  #
+  # Code API Reference HTML build and deploy
+  #
+  BUILD_DOCS: "true"
+  DEPLOY_DOCS: "true"
   
 include:
   - project: "cogniteam/develop"

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(cognitao-examples VERSION 1.0.0)
+project(cognitao-examples VERSION 1.0.1)
 
 #
 # Set to 'On' for non-nightly version build (stable version X.Y.Z)
@@ -259,21 +259,20 @@ if (EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   set(CPACK_NSIS_CONTACT "info@cogniteam.com")
   set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
   set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS " cognitao ")
 
   if (RELEASE_VERSION) 
     set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
     set(CPACK_NSIS_PACKAGE_NAME "CogniTao")
     set(CPACK_NSIS_DISPLAY_NAME "CogniTao")
     set(CPACK_PACKAGE_INSTALL_DIRECTORY "CogniTao")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS " cognitao-nightly ")
     message(STATUS "Release build")
   else()
     set(CPACK_DEBIAN_PACKAGE_NAME "${PROJECT_NAME}-nightly")
-    set(CPACK_NSIS_PACKAGE_NAME "CogniTao Nightly")
-    set(CPACK_NSIS_DISPLAY_NAME "CogniTao Nightly")
-    set(CPACK_PACKAGE_INSTALL_DIRECTORY "CogniTao Nightly")
+    set(CPACK_NSIS_PACKAGE_NAME "${PROJECT_NAME} Nightly")
+    set(CPACK_NSIS_DISPLAY_NAME "${PROJECT_NAME} Nightly")
+    set(CPACK_PACKAGE_INSTALL_DIRECTORY "${PROJECT_NAME} Nightly")
     set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}-nightly")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS " cognitao-nightly ")
     message(STATUS "Development build")
   endif()
   
