@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(cognitao-examples VERSION 1.0.2)
+project(cognitao-examples VERSION 1.0.3)
 
 #
 # Set to 'On' for non-nightly version build (stable version X.Y.Z)

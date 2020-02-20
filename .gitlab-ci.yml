@@ -1,7 +1,7 @@
 
 variables:
   DEPEND_COGNI_APT: "cognitao"
-  DEPEND_PACKAGES: "cognitao-nightly"
+  DEPEND_PACKAGES: "cognitao"
   APT_REPOSITORY: "cognitao"
   OWNCLOUD_PATH: CogniTao/Examples
   BUILD_WIN64: "false"
