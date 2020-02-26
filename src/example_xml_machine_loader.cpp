@@ -13,9 +13,6 @@ int main(int argc, char* argv[]) {
 
 	try
 	{
-		// init WM interface
-		WM::init(new MapThreadSafeDataSource());
-
 		if (argc < 2) {
             
 			cout<<"-- MISSING XML FILE --"<<endl;
@@ -32,9 +29,9 @@ int main(int argc, char* argv[]) {
 			while (!m->isFinished())
 			{
 				// Print WM
-            	cout<<WM::toString();    
+            	cout<<WorldModel::serializeJson();    
             	// Print Execution State
-            	cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+            	cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}

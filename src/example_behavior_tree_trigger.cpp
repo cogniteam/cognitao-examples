@@ -14,10 +14,7 @@ int main(int argc, char* argv[]) {
 
 	try
 	{
-		// init WM interface
-		WM::init(new MapThreadSafeDataSource());
-
-        Machine *m = new MachineBT();
+		Machine *m = new MachineBT();
         
         // trigger will stop the subtree with success once condition in met
         auto trigger = new BehaviourTrigger("event","=","true");
@@ -35,16 +32,16 @@ int main(int argc, char* argv[]) {
         m->start();
         
         std::this_thread::sleep_for(std::chrono::seconds(4));
-        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
         // trigger the event
-        WM::setVar("event","true");
-        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+        WorldModel::setVar("event","true");
+        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
         // wait for the tree to end
         while (!m->isFinished())
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
-        cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
         m->stop();
 		delete m;
     

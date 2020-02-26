@@ -13,9 +13,6 @@ int main(int argc, char* argv[]) {
 
 	try
 	{
-		// init WM with in memory map
-		WM::init(new MapThreadSafeDataSource());
-
         // Create a behaviour tree machine 
         Machine* m = new MachineBT();
 
@@ -51,12 +48,12 @@ int main(int argc, char* argv[]) {
             std::time_t t = std::time(nullptr);
             char mbstr[100];
             if(std::strftime(mbstr, sizeof(mbstr), "%A %c", std::localtime(&t)))
-                WM::setVar("time",std::string(mbstr)); // setting the current time in WM::time
+                WorldModel::setVar("time",std::string(mbstr)); // setting the current time in WM::time
             
             // Print WM
-            cout<<WM::toString();    
+            cout<<WorldModel::serializeJson();    
             // Print Execution State
-            cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+            cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
             //Sleep
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }

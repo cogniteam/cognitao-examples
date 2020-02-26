@@ -66,15 +66,13 @@ public:
 	UserRunnerFactoryMethod(){}
 	virtual ~UserRunnerFactoryMethod(){}
 
-	virtual Runner* createRunner(
+	virtual Runner::Ptr createRunner(
 			std::string action,
 			Task *t
 	) {
 
-		Runner *tRet = nullptr;
-		tRet= new UserRunner(action,t->getParameters());
 		cout << "USER RUNNER CREATED" << endl;
-		return tRet;
+		return Runner::Ptr(new UserRunner(action,t->getParameters()));
 	}
 };
 
@@ -84,9 +82,7 @@ int main(int argc, char* argv[])
 	try
 	{
 	
-		// init WM interface
-		WM::init(new MapThreadSafeDataSource());
-
+		
 		// Registering a runner factory method that uses an alternative runner
 		// For example in the following tag in the XML
 		// <task name="Report" runner="user-remote" action="wait" param_time="2.0" />
@@ -97,11 +93,6 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		else{
-			
-			//initialize World Model
-			WM::init(new MapThreadSafeDataSource());
-
-
 
 			cout<< "Loading XML " << argv[1] << endl;
 			Machine* m =  MachineXMLReader::read(argv[1]);
@@ -113,9 +104,9 @@ int main(int argc, char* argv[])
 			while (true) // can be !m->isFinished() for one time run
 			{
 				// Print WM
-            	cout<<WM::toString();    
+            	cout<<WorldModel::serializeJson();    
             	// Print Execution State
-            	cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+            	cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}

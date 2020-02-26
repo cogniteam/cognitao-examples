@@ -15,8 +15,6 @@ int main(int argc, char* argv[]) {
 	try
 	{
 
-                WM::init(new MapThreadSafeDataSource());
-
                 std::ostringstream strs;
                 std::map<std::string,std::string> params;
                 auto s1 = new StateEmpty("locked",params);
@@ -39,10 +37,10 @@ int main(int argc, char* argv[]) {
                         //and add the time to the overall time
                         //std::this_thread::sleep_for(std::chrono::milliseconds(10));
                         if(i%2){
-                                WM::setVar("PUSH","event");
+                                WorldModel::setVar("PUSH","event");
                         }
                         else{
-                                WM::setVar("COIN","event");
+                                WorldModel::setVar("COIN","event");
                         }
                         i++;
                 }

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(cognitao-examples VERSION 1.0.4)
+project(cognitao-examples VERSION 1.0.5)
 
 #
 # Set to 'On' for non-nightly version build (stable version X.Y.Z)
@@ -59,7 +59,7 @@ add_executable(cognitao_example_state_machine_turnstile
   src/example_state_machine_turnstile.cpp
 )
 
-add_executable(cognitao_example_behavior_tree_simple
+add_executable(cognitao_example_behavior_tree_simple 
   src/example_behavior_tree_simple.cpp
 ) 
 
@@ -139,6 +139,7 @@ else()
   set(CMAKE_INSTALL_PREFIX "/usr")
   set(INSTALL_LIB_DIR ${CMAKE_INSTALL_PREFIX}/lib)
   set(INSTALL_BIN_DIR ${CMAKE_INSTALL_PREFIX}/bin/)
+  set(INSTALL_PLUGIN_LIB_DIR ${CMAKE_INSTALL_PREFIX}/lib/cognitao/plugins)
   set(INSTALL_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
 endif()
 
@@ -166,6 +167,16 @@ install(
   DESTINATION ${INSTALL_SHARE_DIR}/sources
   FILES_MATCHING PATTERN "*"
 )
+
+#
+# CogniTao plugins
+#
+install(TARGETS cognitao_example_runner_plugin
+  cognitao_example_datasource_plugin
+  ARCHIVE DESTINATION ${INSTALL_PLUGIN_LIB_DIR}
+  LIBRARY DESTINATION ${INSTALL_PLUGIN_LIB_DIR}
+)
+
 
 if(WIN32)
   # MinGw64 windows dlls

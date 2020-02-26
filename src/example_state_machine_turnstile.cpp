@@ -14,9 +14,6 @@ int main(int argc, char* argv[]) {
 
 	try
 	{
-
-		WM::init(new MapThreadSafeDataSource());
-
 		std::ostringstream strs;
 		std::map<std::string,std::string> params;
 		auto s1 = new StateEmpty("locked",params);
@@ -37,47 +34,47 @@ int main(int argc, char* argv[]) {
 		bool lockCoinEvent_,unLockCoinEvent_,unLockPushEvent_,lockPushEvent_;
 
 
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
-		WM::setVar("COIN","event");
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+		WorldModel::setVar("COIN","event");
 		cout << "->coin" <<endl;
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 
 		(m->getCurrentState()->getName().compare("unlocked")==0)?
 						lockCoinEvent_=true:lockCoinEvent_=false;
 
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
-		WM::setVar("COIN","event");
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+		WorldModel::setVar("COIN","event");
 		cout << "->coin" <<endl;
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 
 		(m->getCurrentState()->getName().compare("unlocked")==0)?
 						unLockCoinEvent_=true:unLockCoinEvent_=false;
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
-		WM::setVar("PUSH","event");
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+		WorldModel::setVar("PUSH","event");
 		cout << "->push" <<endl;
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 
 		(m->getCurrentState()->getName().compare("locked")==0)?
 						unLockPushEvent_=true:unLockPushEvent_=false;
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
-		WM::setVar("PUSH","event");
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+		WorldModel::setVar("PUSH","event");
 		cout << "->push" <<endl;
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 
 		(m->getCurrentState()->getName().compare("locked")==0)?
 						lockPushEvent_=true:lockPushEvent_=false;
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
-		WM::setVar("COIN","event");
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+		WorldModel::setVar("COIN","event");
 		cout << "->coin" <<endl;
-		cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;
+		cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
 
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 		(m->getCurrentState()->getName().compare("unlocked")==0)?

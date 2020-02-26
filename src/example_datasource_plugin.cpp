@@ -15,7 +15,7 @@
 using namespace std;
 
 
-class SharedLibraryPrinterDataSource  : public MapDataSource {
+class SharedLibraryPrinterDataSource  : public DataSource {
 
 public:
 	
@@ -23,25 +23,14 @@ public:
 
     }
 
-	virtual string getVar(const string& variable) {
+	virtual bool publishUpdateEvent(const string& name, const string& value){
+		// send to datasources
+	};
 
-		cout << "<<  SharedDatasource: getting variable " << variable << endl;
-
-		return MapDataSource::getVar(variable);
+	void onDataSourceEvent()
+	{
+		//call variableUpdated(const string& name, const string& value);
 	}
-
-	virtual void setVar(const string& variable, const string& value) {
-
-		cout << ">> SharedDatasource: setting variable " << variable << ":" << value <<endl;
-        
-		MapDataSource::setVar(variable,value);
-	}
-	
-	virtual string toString() {
-
-		return MapDataSource::toString();
-	}
-
 };
 
 // RUNNER PLUGIN INTERFACE 

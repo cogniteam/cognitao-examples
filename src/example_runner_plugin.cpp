@@ -23,7 +23,12 @@ public:
 
 		stopRequested_ = false;
 		cout << "IN SHARED LIBRARY RUNNER " << action_ << " SLEEP "  << endl;
-
+		cout << "PARAMETERS :" << endl;
+		for(auto param : getParameters())
+		{
+			cout<< param.first << " " << param.second << endl;
+		}
+		cout << "DATASOURCE " << WorldModel::getDataSource() << endl;
 		double msec = 2.0 * 1000;
 
 		int idx = msec / 100;
@@ -35,7 +40,7 @@ public:
 
 		// cerr << getDataSource()->getVar("DistanceAA") << endl;
 
-		cerr << "DistanceAA = " << WM::getVar("DistanceAA") << endl;
+		cerr << "DistanceAA = " << WorldModel::getVar("DistanceAA") << endl;
 		
 		return true;
 	}

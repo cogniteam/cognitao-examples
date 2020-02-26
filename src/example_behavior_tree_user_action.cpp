@@ -26,7 +26,7 @@ public:
 		unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 		srand(seed);
 		int rnd = (rand() % 9) + 1;
-		WM::setVar("random",StringUtils::itos(rnd));
+		WorldModel::setVar("random",StringUtils::itos(rnd));
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		return true;
 	}
@@ -35,7 +35,7 @@ public:
 	{
 		for(int i = 0; i<10 ; i++)
 		{
-			WM::setVar("loop",StringUtils::itos(i));
+			WorldModel::setVar("loop",StringUtils::itos(i));
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 		return true;
@@ -43,7 +43,7 @@ public:
 
 	bool waitRandom(Task* b)
 	{
-		std::string rnd = WM::getVar("random");
+		std::string rnd = WorldModel::getVar("random");
 		std::this_thread::sleep_for(std::chrono::seconds(stoi(rnd)));
 		//std::this_thread::sleep_for(std::chrono::seconds(stoi("hello")));
 		return true;
@@ -59,9 +59,7 @@ int main(int argc, char* argv[])
 		// instance of functions class;
 		auto userFunctions = new UserFunctions();
 
-		// init WM interface
-		WM::init(new MapThreadSafeDataSource());
-
+		
 		// Registering BehaviourTask actions defined by the user
 		// These will be called when runner="local" and action="some_method"
 		// defined in UserFunctions::some_method
@@ -78,9 +76,6 @@ int main(int argc, char* argv[])
 		}
 		else{
 			
-			//initialize World Model
-			WM::init(new MapThreadSafeDataSource());
-
 			cout<< "Loading XML " << argv[1] << endl;
 			Machine* m =  MachineXMLReader::read(argv[1]);
 
@@ -91,9 +86,9 @@ int main(int argc, char* argv[])
 			while (true) // can be !m->isFinished() for one time run
 			{
 				// Print WM
-				cout<<WM::toString();    
+				cout<<WorldModel::serializeJson();    
             	// Print Execution State
-            	cout<<MachineStringWriter::executionTrace(m->getExecutionState()) <<endl;	
+            	cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;	
 				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
