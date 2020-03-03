@@ -75,6 +75,10 @@ add_executable(cognitao_example_behavior_tree_runner
   src/example_behavior_tree_runner.cpp
 )
 
+add_executable(cognitao_example_world_model_namespaces
+  src/example_world_model_namespaces.cpp
+)
+
 add_library(cognitao_example_runner_plugin SHARED
     src/example_runner_plugin
 )
@@ -121,6 +125,10 @@ target_link_libraries(cognitao_example_behavior_tree_trigger
   CogniTao::cognitao_core
 )
 
+target_link_libraries(cognitao_example_world_model_namespaces
+  CogniTao::cognitao_core
+)
+
 #
 # Install
 # 
@@ -155,6 +163,7 @@ install(TARGETS cognitao_example_xml_machine_loader
     cognitao_example_behavior_tree_runner 
     cognitao_example_runner_plugin
     cognitao_example_datasource_plugin 
+    cognitao_example_world_model_namespaces
     cognitao_example_behavior_tree_trigger EXPORT CogniTaoExamplesExports
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
   LIBRARY DESTINATION ${INSTALL_LIB_DIR}
