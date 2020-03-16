@@ -96,16 +96,7 @@ int main(int argc, char* argv[])
 
 			if(m->getState() == TaskState::error)
 			{
-				try
-				{
-					std::rethrow_exception(m->getException());
-				}
-				catch (const std::exception& e)
-				{
-					std::cerr << e.what() << std::endl;
-					std::cerr << MachineStringWriter::writeExecutionTrace(m) << endl;
-				}
-				
+				std::cerr << "ERROR IN MACHINE" << std::endl;
 			}
 
 			bool bRet = m->getReturn();
@@ -116,6 +107,7 @@ int main(int argc, char* argv[])
 		}
 	}
 	catch (CogniTAOException& e) {
+		std::cerr << e.what() << std::endl;
 	}
 	cout << "CogniTao Sever shutting down" <<endl;
 	return 1;
