@@ -16,6 +16,7 @@ class UserFunctions{
 public:
 	bool wait(Task* b)
 	{
+		int i=stoi("");
 		while(!b->isStopRequested())
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		return true;
@@ -83,7 +84,7 @@ int main(int argc, char* argv[])
 			MachineWebServer w("0.0.0.0", "1234", m);
 			m->start();
 
-			while (true) // can be !m->isFinished() for one time run
+			while (!m->isFinished()) // can be !m->isFinished() for one time run
 			{
 				// Print WM
 				cout<<WorldModel::serializeJson();    
@@ -93,12 +94,20 @@ int main(int argc, char* argv[])
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
 
+			if(m->getState() == TaskState::error)
+			{
+				std::cerr << "ERROR IN MACHINE" << std::endl;
+			}
+
+			bool bRet = m->getReturn();
+
+			cout << "Machine ended with "<< bRet << endl;
 			m->stop();
 			delete m;
 		}
 	}
-	catch (std::exception const& e) {
-		std::cerr << "ERROR: " << e.what() << std::endl;
+	catch (CogniTAOException& e) {
+		std::cerr << e.what() << std::endl;
 	}
 	cout << "CogniTao Sever shutting down" <<endl;
 	return 1;
