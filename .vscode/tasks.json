@@ -8,17 +8,17 @@
             "type": "shell",
             "command": "mkdir build -p && cd build && cmake -DCMAKE_BUILD_TYPE=Debug .. && make -j1",
             "problemMatcher": [ "$gcc" ],
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "make all [release]",
             "type": "shell",
             "command": "mkdir build -p && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j1",
             "problemMatcher": [ "$gcc" ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group":  "build"
         },
         {
             "label": "clean",

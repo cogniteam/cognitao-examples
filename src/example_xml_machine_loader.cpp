@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 				// Print WM
             	cout<<WorldModel::serializeJson();    
             	// Print Execution State
-            	cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+            	cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;
 				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}

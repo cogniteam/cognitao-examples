@@ -89,14 +89,17 @@ int main(int argc, char* argv[])
 				// Print WM
 				cout<<WorldModel::serializeJson();    
             	// Print Execution State
-            	cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;	
+            	cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;	
 				
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 			}
 
 			if(m->getState() == TaskState::error)
 			{
-				std::cerr << "ERROR IN MACHINE" << std::endl;
+				std::cout << "\n\nERROR IN MACHINE : TRACE" << std::endl;
+				cout<<MachineTraceWriter::writeExecutionTrace(m) << "\n\n" <<endl;
+				
+				
 			}
 
 			bool bRet = m->getReturn();
