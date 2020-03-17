@@ -32,16 +32,16 @@ int main(int argc, char* argv[]) {
         m->start();
         
         std::this_thread::sleep_for(std::chrono::seconds(4));
-        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+        cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;
         // trigger the event
         WorldModel::setVar("event","true");
-        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+        cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;
         // wait for the tree to end
         while (!m->isFinished())
         {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
-        cout<<MachineStringWriter::writeExecutionTrace(m) <<endl;
+        cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;
         m->stop();
 		delete m;
     
