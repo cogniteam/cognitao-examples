@@ -98,8 +98,6 @@ int main(int argc, char* argv[])
 			{
 				std::cout << "\n\nERROR IN MACHINE : TRACE" << std::endl;
 				cout<<MachineTraceWriter::writeExecutionTrace(m) << "\n\n" <<endl;
-				
-				
 			}
 
 			bool bRet = m->getReturn();

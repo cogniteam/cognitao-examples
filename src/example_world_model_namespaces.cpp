@@ -47,8 +47,6 @@ int main(int argc, char const *argv[]) {
     WorldModel::setDataSource(UdpMulticastDataSource::create());
     WorldModel::setNamespace(string(argv[1]));
 
-    
-
     while (true) {
 
         auto vars = WorldModel::getAllVariableNames();
@@ -60,6 +58,7 @@ int main(int argc, char const *argv[]) {
         cout << endl;
         WorldModel::setVar("ready", "True");
         sleep(1);
+        string test = WorldModel::getVar("SomeNoneExistantVariable");
     }
 
     return 0;
