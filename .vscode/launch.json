@@ -21,6 +21,25 @@
             ]
         },
         {
+            "name": "test_ros1 (gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cognitao_example_xml_machine_loader",
+            "args": ["assets/machines/wm_test.xml","RosDataSource"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "example_world_model_namespaces (gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
