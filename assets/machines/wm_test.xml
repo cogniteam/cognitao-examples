@@ -1,5 +1,0 @@
-<machine name="testBT" type="bt">
-	<loop name="Main mission loop" variable="1">
-	   	<wait name="wait" value="5"/>
-   </loop>
-</machine>

@@ -1,0 +1,8 @@
+<machine name="testBT" type="bt">
+    <sequencer name="test">
+    	<task name="wait1" runner="local" action="wait_random"/>
+        <task name="wait2" runner="local" action="wait_and_print" param_input="
+        HELLO WORLD!"/>
+        <task name="wait3" runner="local" action="wait_forever"/>
+    </sequencer>
+</machine>

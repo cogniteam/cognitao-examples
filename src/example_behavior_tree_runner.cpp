@@ -1,11 +1,33 @@
-//============================================================================
-// Name        : example_behavior_tree_runner
-// Author      : CogniTeam
-// Version     : 
-// Description : 
-//============================================================================
-
-
+/**
+ * @brief 
+ * 
+ * @file example_behavior_tree_runner.cpp
+ * 
+ * @author ari (ari@cogniteam.com)
+ * @date 2020-04-21
+ * @copyright Cogniteam (c) 2020
+ *    
+ * MIT License
+ *   
+ * Permission is hereby granted, free of charge, to any person obtaining a  copy
+ * of this software and associated documentation files (the 'Software'), to deal
+ * in the Software without restriction, including without  limitation the rights
+ * to use, copy, modify, merge,  publish,  distribute,  sublicense,  and/or sell
+ * copies of the Software, and  to  permit  persons  to  whom  the  Software  is 
+ * furnished to do so, subject to the following conditions:
+ *   
+ * The   above   copyright   notice   and  this   permission   notice  shall  be
+ * included in all copies or substantial portions of the Software.
+ *   
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN  NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ */
 #include <iostream>
 #include <string>
 #include <vector>
@@ -29,10 +51,13 @@ class UserRunner : public Runner{
 	atomic<bool> stopRequested;
 public:
 
-	UserRunner(string action, std::map<std::string, std::string> parameters) : Runner(action,parameters){}
+	UserRunner(string action, std::map<std::string, std::string> parameters) : Runner(){
+		this->setAction(action);
+		this->setParameters(parameters);
+	}
 
-	virtual bool run(){
-		cout << "USER CODE THAT EXECUTES "<< action_ <<" TASK REMOTELY START" << endl;
+	virtual bool run() override {
+		cout << "USER CODE THAT EXECUTES "<< getAction() <<" TASK REMOTELY START" << endl;
 		// use your runners api to START a remote task
 		// here
 		int i = 3;
@@ -46,15 +71,27 @@ public:
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 			i--;
 		}
-		cout << "USER CODE THAT EXECUTES "<< action_ <<" TASK REMOTELY STOP" << endl;
+		cout << "USER CODE THAT EXECUTES "<< getAction() <<" TASK REMOTELY STOP" << endl;
 		// return the remote task return value
 		// here
 		return true;
 	}
-	virtual void stop() {
+
+	virtual void stop() override 
+    {
 		stopRequested = true;
 	}
-	virtual std::string getType() { return "user_remote";};
+
+     /**
+     * @brief Gets the Type, used in the XML in the form of
+     *  <task name="name" runner="user_remote" param_time="3.0" />
+     *  Runner parameters are in the form of param_<name>="value"
+     * @return std::string 
+     */
+	virtual std::string getType() override
+    { 
+        return "user_remote";
+    };
 
 };
 
@@ -94,24 +131,46 @@ int main(int argc, char* argv[])
 		}
 		else{
 
+        
 			cout<< "Loading XML " << argv[1] << endl;
-			Machine* m =  MachineXMLReader::read(argv[1]);
+
+			Machine* machineHandler =  MachineXMLReader::read(argv[1]);
+
+            auto startTime = chrono::system_clock::now(); 
+            machineHandler->start();
+           
+            cout << " - machine: " << argv[1] << endl;
+            cout << " - name: " << machineHandler->getName() << endl;
+            cout << endl;
+
+            while (!machineHandler->isFinished() &&
+                machineHandler->getState() != TaskState::error) {
+                cout << MachineTraceWriter::writeExecutionTrace(machineHandler) << endl;
+
+                this_thread::sleep_for(chrono::milliseconds(100));
+            }
+
+            auto endTime = chrono::system_clock::now();
+            chrono::duration<double> elapsedTime = endTime - startTime;
 
 
-			MachineWebServer w("0.0.0.0", "1234", m);
-			m->start();
+            if(machineHandler->getState() == TaskState::error)
+            {
+                cout << machineHandler->getName() 
+                        << " finished with error, elapsed time: " 
+                        << elapsedTime.count() << "s" << endl;
+                cout << machineHandler->getExceptionMessage() <<endl;
 
-			while (true) // can be !m->isFinished() for one time run
-			{
-				// Print WM
-            	cout<<WorldModel::serializeJson();    
-            	// Print Execution State
-            	cout<<MachineTraceWriter::writeExecutionTrace(m) <<endl;
-				
-				std::this_thread::sleep_for(std::chrono::seconds(1));
-			}
-			m->stop();
-			delete m;
+            }
+            else
+            {      
+                cout << machineHandler->getName() 
+                        << " finished successfully, elapsed time: " 
+                        << elapsedTime.count() << "s" << endl;
+            }
+        
+            machineHandler->stop();
+            delete machineHandler;
 		}
 	}
 	catch (std::exception const& e) {
