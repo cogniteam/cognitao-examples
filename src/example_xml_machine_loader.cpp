@@ -87,8 +87,8 @@ int main(int argc, char* argv[]) {
         else
         {      
             cout << machine->getName() 
-                    << " finished successfully, elapsed time: " 
-                    << elapsedTime.count() << "s" << endl;
+                    << " finished without error, elapsed time: " 
+                    << elapsedTime.count() << "s return (" <<machine->getReturn() << ")" <<  endl;
         }
 
         try
@@ -103,6 +103,13 @@ int main(int argc, char* argv[]) {
 
     } catch (std::runtime_error & e) {
         cerr <<  e.what() << endl;
+        try
+        {
+            cout  << "Resetting DataSource (ROS)" <<endl;
+            WorldModel::resetDataSource(); 
+        }
+        catch(...)
+        {};  
         return 2;
     }
     

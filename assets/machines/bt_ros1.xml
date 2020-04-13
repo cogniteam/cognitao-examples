@@ -1,0 +1,3 @@
+<machine name="testBT" type="bt">
+	<task name="wait" runner="RosRunner" action="wait" param_time="10.0"/>
+</machine>

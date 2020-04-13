@@ -1,10 +1,13 @@
-//============================================================================
-// Name        : example_behavior_tree_runner
-// Author      : CogniTeam
-// Version     : 
-// Description : 
-//============================================================================
-
+/**
+ * @file example_behavior_tree_runner.cpp
+ * @author ari yakir (ari@cogniteam.com)
+ * @brief 
+ * @version 0.1
+ * @date 2020-04-21
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 
 #include <iostream>
 #include <string>
@@ -29,7 +32,10 @@ class UserRunner : public Runner{
 	atomic<bool> stopRequested;
 public:
 
-	UserRunner(string action, std::map<std::string, std::string> parameters) : Runner(action,parameters){}
+	UserRunner(string action, std::map<std::string, std::string> parameters) : Runner(){
+		this->setAction(action);
+		this->setParameters(parameters);
+	}
 
 	virtual bool run(){
 		cout << "USER CODE THAT EXECUTES "<< action_ <<" TASK REMOTELY START" << endl;

@@ -1,15 +1,57 @@
+//
+// Setup your name and email in global settings json:
+//
+// 1. Press Ctrl + Shift + P to open Command Pallete
+// 2. Type 'Preferences: Open Settings (JSON)'
+// 3. Add the following lines:
+//      "doxdocgen.generic.authorName": "Moshe Cohen",
+//      "doxdocgen.generic.authorEmail": "moshe@cogniteam.com"
+// 4. Save
+// 
 {
+    // 80/120 Characters rulers
+    "editor.rulers": [80,120],        
+
+    // Use 4 spaces instead of tab in c++ code
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+
+    "editor.renderWhitespace": "all",
+    "typescript.updateImportsOnFileMove.enabled": "always",
     "files.associations": {
-        "iosfwd": "cpp",
-        "atomic": "cpp",
+        "*.sdf": "xml",
+        "*.json": "jsonc",
+        "functional": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "regex": "cpp",
+        "type_traits": "cpp",
+        "typeinfo": "cpp",
         "array": "cpp",
+        "*.def": "cpp",
         "*.tcc": "cpp",
         "bitset": "cpp",
-        "cctype": "cpp",
+        "exception": "cpp",
+        "optional": "cpp",
+        "algorithm": "cpp",
+        "fstream": "cpp",
+        "future": "cpp",
+        "initializer_list": "cpp",
+        "mutex": "cpp",
+        "ostream": "cpp",
+        "numeric": "cpp",
+        "streambuf": "cpp",
+        "thread": "cpp",
+        "condition_variable": "cpp",
+        "*.txx": "cpp",
+        "unordered_map": "cpp",
         "chrono": "cpp",
+        "atomic": "cpp",
+        "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
-        "condition_variable": "cpp",
+        "codecvt": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
         "cstdint": "cpp",
@@ -22,41 +64,83 @@
         "deque": "cpp",
         "forward_list": "cpp",
         "list": "cpp",
-        "unordered_map": "cpp",
         "vector": "cpp",
-        "exception": "cpp",
-        "algorithm": "cpp",
-        "functional": "cpp",
+        "filesystem": "cpp",
         "iterator": "cpp",
         "map": "cpp",
         "memory": "cpp",
         "memory_resource": "cpp",
-        "numeric": "cpp",
-        "optional": "cpp",
         "random": "cpp",
         "ratio": "cpp",
-        "regex": "cpp",
         "set": "cpp",
         "string": "cpp",
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",
-        "type_traits": "cpp",
         "utility": "cpp",
-        "fstream": "cpp",
-        "future": "cpp",
-        "initializer_list": "cpp",
+        "iosfwd": "cpp",
         "iostream": "cpp",
-        "istream": "cpp",
-        "limits": "cpp",
-        "mutex": "cpp",
         "new": "cpp",
-        "ostream": "cpp",
         "sstream": "cpp",
         "stdexcept": "cpp",
-        "streambuf": "cpp",
-        "thread": "cpp",
-        "typeinfo": "cpp",
-        "valarray": "cpp"
-    }
+        "valarray": "cpp",
+        "csignal": "cpp",
+        "strstream": "cpp",
+        "complex": "cpp",
+        "iomanip": "cpp",
+        "cfenv": "cpp",
+        "cinttypes": "cpp",
+        "typeindex": "cpp",
+        "*.ipp": "cpp"
+    },
+    //
+    // @link https://code.visualstudio.com/docs/remote/wsl#_i-see-eaccess-permission-denied-error-trying-to-rename-a-folder-in-the-open-workspace
+    //
+    "remote.WSL.fileWatcher.polling": true,
+    "doxdocgen.c.factoryMethodText": "Creates a {name} object",
+    "doxdocgen.c.getterText": "Gets the {name}",
+    "doxdocgen.c.setterText": "Sets the {name}",
+    "doxdocgen.cpp.dtorText": "Destroys the {name} object",
+    "doxdocgen.file.fileOrder": [
+        "brief",
+        "empty",
+        "file",
+        "empty",
+        "author",
+        "date",
+        "copyright",
+        "custom"
+    ],
+    "doxdocgen.generic.order": [
+        "brief",
+        "tparam",
+        "param",
+        "return"
+    ],
+    "doxdocgen.file.copyrightTag": [
+        "@copyright Cogniteam (c) {year}"
+    ],
+    "doxdocgen.file.customTag": [
+        "   ",
+        "MIT License",
+        "  ",
+        "Permission is hereby granted, free of charge, to any person obtaining a  copy",
+        "of this software and associated documentation files (the 'Software'), to deal",
+        "in the Software without restriction, including without  limitation the rights",
+        "to use, copy, modify, merge,  publish,  distribute,  sublicense,  and/or sell",
+        "copies of the Software, and  to  permit  persons  to  whom  the  Software  is ",
+        "furnished to do so, subject to the following conditions:",
+        "  ",
+        "The   above   copyright   notice   and  this   permission   notice  shall  be",
+        "included in all copies or substantial portions of the Software.",
+        "  ",
+        "THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR",
+        "IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,",
+        "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN  NO EVENT SHALL THE",
+        "AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER",
+        "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,",
+        "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE",
+        "SOFTWARE.",
+        ""
+    ]
 }

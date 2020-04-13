@@ -25,6 +25,7 @@ public:
 
 	virtual bool publishUpdateEvent(const string& name, const string& value){
 		// send to datasources
+		return true;
 	};
 
 	void onDataSourceEvent()
