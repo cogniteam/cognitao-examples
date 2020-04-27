@@ -59,8 +59,12 @@ add_executable(cognitao_example_state_machine_turnstile
   src/example_state_machine_turnstile.cpp
 )
 
-add_executable(cognitao_example_behavior_tree_simple 
-  src/example_behavior_tree_simple.cpp
+add_executable(cognitao_example_behavior_tree_construction 
+  src/example_behavior_tree_construction.cpp
+) 
+
+add_executable(cognitao_example_behavior_tree_return_exceptions 
+  src/example_behavior_tree_return_exceptions.cpp
 ) 
 
 add_executable(cognitao_example_behavior_tree_trigger
@@ -101,9 +105,14 @@ target_link_libraries(cognitao_example_state_machine_turnstile
   CogniTao::cognitao_core
 )
 
-target_link_libraries(cognitao_example_behavior_tree_simple
+target_link_libraries(cognitao_example_behavior_tree_construction
   CogniTao::cognitao_core
 )
+
+target_link_libraries(cognitao_example_behavior_tree_return_exceptions
+  CogniTao::cognitao_core
+)
+
 
 target_link_libraries(cognitao_example_behavior_tree_user_action
   CogniTao::cognitao_core
@@ -158,7 +167,8 @@ set(INSTALL_CMAKE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/${PROJECT_NAME})
 install(TARGETS cognitao_example_xml_machine_loader 
     cognitao_example_state_machine 
     cognitao_example_state_machine_turnstile
-    cognitao_example_behavior_tree_simple
+    cognitao_example_behavior_tree_construction
+    cognitao_example_behavior_tree_return_exceptions
     cognitao_example_behavior_tree_user_action 
     cognitao_example_behavior_tree_runner 
     cognitao_example_runner_plugin

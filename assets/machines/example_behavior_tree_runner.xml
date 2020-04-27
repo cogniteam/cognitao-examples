@@ -1,0 +1,7 @@
+<machine name="testBT" type="bt">
+    <sequencer name="test">
+    	<task name="wait1" runner="user_remote" action="wait1" param_time="3.0"/>
+        <task name="wait2" runner="user_remote" action="wait2" param_time="3.0"/>
+        <task name="wait3" runner="user_remote" action="wait3" param_time="3.0"/>
+    </sequencer>
+</machine>

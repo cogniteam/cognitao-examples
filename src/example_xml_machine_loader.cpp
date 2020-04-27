@@ -1,17 +1,64 @@
-//============================================================================
-// Name        : example_xml_machine_loader.cpp
-// Author      : Cogniteam
-// Version     :
-// Copyright   : MIT
-// Description :
-//============================================================================
+/**
+ * @brief 
+ * 
+ * @file example_xml_machine_loader.cpp
+ * 
+ * @author ari (ari@cogniteam.com)
+ * @date 2020-04-27
+ * @copyright Cogniteam (c) 2020
+ *    
+ * MIT License
+ *   
+ * Permission is hereby granted, free of charge, to any person obtaining a  copy
+ * of this software and associated documentation files (the 'Software'), to deal
+ * in the Software without restriction, including without  limitation the rights
+ * to use, copy, modify, merge,  publish,  distribute,  sublicense,  and/or sell
+ * copies of the Software, and  to  permit  persons  to  whom  the  Software  is 
+ * furnished to do so, subject to the following conditions:
+ *   
+ * The   above   copyright   notice   and  this   permission   notice  shall  be
+ * included in all copies or substantial portions of the Software.
+ *   
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY  KIND,  EXPRESS  OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED  TO  THE  WARRANTIES  OF  MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN  NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR  OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ */
 
+#include <chrono> 
+#include <ctime> 
 #include <cognitao/CogniTao.h>
+#include <cognitao/io/Environment.h>
 
+shared_ptr<Machine> machineHandler;
+
+using namespace std;
+using namespace cognitao::data_sources;
+
+ 
+/**
+ * @brief Starts CogniTao server and WebServerApi
+ * @note 
+ * Machine xml file path must be provided as first argument
+ *  
+ * @par Usage example:
+ * @code
+ * cognitao_server ~/plans/behavior_tree.xml
+ * @endcode
+ *  
+ */
 
 int main(int argc, char* argv[]) {
 
-	 string logPath = "";
+    Environment::set("COGNITAO_DATASOURCE","udp",false);
+    Environment::set("COGNITAO_IP","0.0.0.0",false);
+    Environment::set("COGNITAO_PORT","1234",false);
+    
+    string logPath = "";
     if (argc < 2) {
         cout << "error: machine XML file path missing" << endl;
         return 1;
@@ -30,45 +77,53 @@ int main(int argc, char* argv[]) {
     // 
     if(argc > 2)
     {    
-        WorldModel::setDataSource( PluginLoader::getDataSource(argv[2]));
+        WorldModel::setDataSource(PluginLoader::getDataSource(argv[2]));
     }
     else
     {
-         WorldModel::setDataSource( PluginLoader::getDataSource("udp"));
+        WorldModel::setDataSource(
+            PluginLoader::getDataSource(
+                Environment::get("COGNITAO_DATASOURCE")
+                )
+            );     
     }
     
     if(argc > 3)
     {    
         logPath = argv[3];
     }
-    
-    // cout<< "Loading machine " << argv[1] << endl;
-
+   
     try {
         if(logPath != "")
         {
             WorldModelLog::init(logPath + ".log_wm");
             TaskLog::init(logPath + ".log_task");
         }
-        shared_ptr<Machine> machine(MachineXMLReader::read(argv[1]));
+        machineHandler.reset(MachineXMLReader::read(argv[1]));
 
-        MachineWebServer webServer("0.0.0.0", "1234", machine.get());
+        //In order to monitor the machine
+        MachineWebServer webServer(
+            Environment::get("COGNITAO_IP"),
+            Environment::get("COGNITAO_PORT"),
+            machineHandler.get());
 
         auto startTime = chrono::system_clock::now(); 
-        machine->start();
+        machineHandler->start();
   
         
         cout << " - machine: " << argv[1] << endl;
-        cout << " - name: " << machine->getName() << endl;
-        cout << " - web ui: " << "\033[1;32mhttp://" << "127.0.0.1" << ":" << "1234\033[0m" << endl;
+        cout << " - name: " << machineHandler->getName() << endl;
+        cout << " - web ui: " << "\033[1;32mhttp://" 
+                << Environment::get("COGNITAO_IP") << ":" 
+                << Environment::get("COGNITAO_PORT") <<"\033[0m" << endl;
         cout << endl;
 
-        cout << machine->getName() << " is running..." << endl << endl;
+        cout << machineHandler->getName() << " is running..." << endl << endl;
 
-        while (!machine->isFinished() && 
-               !machine->isStopRequested() &&
-               machine->getState() != TaskState::error) {
-            cout << MachineTraceWriter::writeExecutionTrace(machine.get()) << endl;
+        while (!machineHandler->isFinished() && 
+               !machineHandler->isStopRequested() &&
+               machineHandler->getState() != TaskState::error) {
+            cout << MachineTraceWriter::writeExecutionTrace(machineHandler.get()) << endl;
 
             this_thread::sleep_for(chrono::milliseconds(100));
         }
@@ -76,30 +131,34 @@ int main(int argc, char* argv[]) {
         auto endTime = chrono::system_clock::now();
         chrono::duration<double> elapsedTime = endTime - startTime;
 
-        if(machine->getState() == TaskState::error)
+
+        if(machineHandler->getState() == TaskState::error)
         {
-            cout << machine->getName() 
+            cout << machineHandler->getName() 
                     << " finished with error, elapsed time: " 
                     << elapsedTime.count() << "s" << endl;
-            cout << machine->getExceptionMessage() <<endl;
+            cout << machineHandler->getExceptionMessage() <<endl;
 
         }
         else
         {      
-            cout << machine->getName() 
-                    << " finished without error, elapsed time: " 
-                    << elapsedTime.count() << "s return (" <<machine->getReturn() << ")" <<  endl;
+            cout << machineHandler->getName() 
+                    << " finished successfully, elapsed time: " 
+                    << elapsedTime.count() << "s" << endl;
         }
-
+        
         try
         {
-            cout  << "Resetting DataSource (ROS)" <<endl;
+            cout  << "Resetting DataSource (for ROS and other systems that require it)" <<endl;
             WorldModel::resetDataSource(); 
         }
         catch(...)
-        {};    
-        
-        return machine->getReturn() ? 0 : 1;
+        {};   
+        webServer.stop();   
+        bool returnValue = machineHandler->getReturn() ? 0 : 1;
+        machineHandler->stop(); 
+        machineHandler.reset();
+        return returnValue;
 
     } catch (std::runtime_error & e) {
         cerr <<  e.what() << endl;
@@ -112,5 +171,5 @@ int main(int argc, char* argv[]) {
         {};  
         return 2;
     }
-    
+
 }

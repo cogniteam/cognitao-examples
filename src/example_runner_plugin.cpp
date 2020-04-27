@@ -75,7 +75,7 @@ public:
      * (for example when loading a plan from xml)
      * @return std::string 
      */
-	virtual std::string getType() { 
+	virtual std::string getType() override { 
 		return "shared_dummy";
 	};
 	
@@ -98,6 +98,9 @@ extern "C" void destroy_runner(Runner* object)
   delete object;
 }
 
+// this will be used in the XML in the form of
+// <task name="name" runner="shared_dummy" param_time="3.0" />
+// Runner parameters are in the form of param_<name>="value"
 extern "C" const char* get_runner_type()
 {
   return "shared_dummy";

@@ -1,5 +1,0 @@
-<machine name="testBT" type="bt">
-	<loop name="Main mission loop" variable="666">
-	   	<task name="wait" runner="local" action="wait" param_time="3.0"/>
-   </loop>
-</machine>

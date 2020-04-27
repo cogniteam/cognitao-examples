@@ -1,0 +1,12 @@
+<machine name="testFSM" type="fsm">
+	<state initial="A" final="C">
+		<state id="A">
+			<transition event="b" target="B"></transition>
+		</state>
+		<state id="B">
+			<transition event="c" target="C"></transition>
+		</state>
+		<state id="C">
+		</state>
+	</state>
+</machine>

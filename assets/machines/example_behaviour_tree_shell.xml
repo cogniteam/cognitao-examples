@@ -1,0 +1,14 @@
+<machine name="Simple Behaviour Tree" type="bt">
+    <sequencer name="main sequence">
+        <set name="timeout" variable="timeout" value="false"/>
+        <trigger name="timeout trigger" stop_condition="timeout = true">
+            <parallel name="main">
+                <shell name="ping google" command="ping" args="google.com -c 10"/>
+                <sequencer name="wait 1 sec and set timeout">
+                    <wait name="ping wait" value="2"/>
+                    <set name="timeout" variable="timeout" value="true"/>
+                </sequencer>
+            </parallel>
+        </trigger>
+    </sequencer>
+</machine>
