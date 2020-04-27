@@ -1,5 +1,5 @@
 # CogniTao Examples
-![alt text](assets/images/bt.png "CogniTao Behaviour Tree")
+![alt text](assets/images/cognitao.jpeg "CogniTao")
 
 
 ## High level Components 
@@ -46,6 +46,7 @@ Across process UDP multi casting is used to sync several worldmodels. Within the
 * In this example a state machine is constructed from code [FSM](src/example_state_machine_turnstile.cpp)
 
 ## Behavior trees
+![alt text](assets/images/bt.PNG "CogniTao Behaviour Tree")
 ### Syntax
 ```
 <machine name="Simple Behaviour Tree" type="bt">
@@ -94,7 +95,7 @@ Across process UDP multi casting is used to sync several worldmodels. Within the
   * (Windows) runners are defaulty installed in C:\Program Files\CogniTao\plugins 
 
 ## CogniTao UI
-![alt text](assets/images/UI.png "CogniTao User Interface")
+![alt text](assets/images/UI.PNG "CogniTao User Interface")
 ### Usage
 * If cognitao_server is running an XML file, the default server will be on port 1234.
 * Otherwise the UI server can be created by passing it a machine pointer.
