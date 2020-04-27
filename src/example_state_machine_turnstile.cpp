@@ -52,39 +52,49 @@ int main(int argc, char* argv[]) {
 		s1->addEdge(s1,E3);
 		s2->addEdge(s2,E4);
 		machine->start();
-
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		bool lockCoinEvent_,unLockCoinEvent_,unLockPushEvent_,lockPushEvent_;
 
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
-		machine->raiseEvent("COIN");
+        WorldModel::setVar("COIN", "event");
+		//machine->raiseEvent("COIN");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
 
 		(machine->getCurrentState()->getName().compare("unlocked")==0)?
 						lockCoinEvent_=true:lockCoinEvent_=false;
 
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
-		machine->raiseEvent("COIN");
+        WorldModel::setVar("COIN", "event");
+		//machine->raiseEvent("COIN");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
 
 		(machine->getCurrentState()->getName().compare("unlocked")==0)?
 						unLockCoinEvent_=true:unLockCoinEvent_=false;
 		
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
-		machine->raiseEvent("PUSH");
+        WorldModel::setVar("PUSH", "event"); 
+		//machine->raiseEvent("PUSH");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
 
 		(machine->getCurrentState()->getName().compare("locked")==0)?
 						unLockPushEvent_=true:unLockPushEvent_=false;
 		
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
-		machine->raiseEvent("PUSH");
+        WorldModel::setVar("PUSH", "event"); 
+		//machine->raiseEvent("PUSH");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
 
 		(machine->getCurrentState()->getName().compare("locked")==0)?
 						lockPushEvent_=true:lockPushEvent_=false;
 		
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
-		machine->raiseEvent("COIN");
+        WorldModel::setVar("COIN", "event");
+		//machine->raiseEvent("COIN");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<MachineTraceWriter::writeExecutionTrace(machine) <<endl;
 
 		(machine->getCurrentState()->getName().compare("unlocked")==0)?
