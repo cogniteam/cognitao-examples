@@ -1,8 +1,8 @@
 # CogniTao Examples
 ![alt text](assets/images/cognitao.jpeg "CogniTao")
 * Make sure cognitao library is installed
-* For cognitao ROS1 examples see https://git.cogni.io/cognitao/cognitao_ros_examples .
-* For cognitao ROS2 examples see https://git.cogni.io/cognitao/cognitao_ros2_examples .
+* For cognitao ROS1 examples see https://github.com/cogniteam/cognitao_ros_examples .
+* For cognitao ROS2 examples see https://github.com/cogniteam/cognitao_ros2_examples .
 
 
 ## High level Components 
@@ -194,7 +194,7 @@ machineHandler->setInitialTask(loop);
 * In this example a behaviour trigger is used to stop an endless task [behavior tree](src/example_behavior_tree_trigger.cpp). 
 ```cpp
 Machine *machineHandler = new MachineBT();
-// trigger will stop the subtree with success once condition in met
+// trigger will stop the subtree with success once a condition is met
 auto trigger = new BehaviourTrigger("event","=","true");
 // wait an hour
 auto wait = new BehaviourWait("waiting",3600);
